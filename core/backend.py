@@ -14,7 +14,7 @@ def plagiarism_checker(document):
     response = requests.get(url)
     data = response.json()
 
-    for item in data.get('items', []):
+    for count, item in enumerate(data.get('items', [])):
         link = item.get('link')
 
         request_site = request.Request(link, headers={"User-Agent": "Mozilla/5.0"})
@@ -36,5 +36,7 @@ def plagiarism_checker(document):
             'fuzzy_ratio': fuzzy_ratio,
             'link': link
         })
+        if count == 3:
+            break
 
     return result
