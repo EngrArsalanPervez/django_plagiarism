@@ -36,5 +36,6 @@ def plagiarism_checker(document):
             'fuzzy_ratio': fuzzy_ratio,
             'link': link
         })
+        break
 
     return result
