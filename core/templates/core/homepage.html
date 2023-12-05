@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+    Plagiarism Checker
+{% endblock %}
+
+{% block content %}
+    <h1 class="text-center bg-warning">Plagiarism Checker</h1>
+    <div class="container-fluid pt-5">
+        <div class="row justify-content-center">
+            <div class="col text-center">
+                <form method="post" action="{% url 'core:homepage' %}">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <input type="submit" class="btn btn-secondary w-25" value="Submit">
+                </form>
+                <br/><br/>
+                {% for item in result %}
+                    <span class="text-danger">{{ item.fuzzy_partial_ratio }}%</span> - <span class="text-success">{{ item.fuzzy_ratio }}%</span> => <a href="{{ item.link }}">{{ item.link }}</a>
+                    <br/>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
